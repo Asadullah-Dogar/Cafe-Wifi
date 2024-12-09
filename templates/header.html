@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Cafes & WiFi</title>
+    <!-- Use Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Madimi+One&display=swap" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+</head>
+<body>
+<header>
+    <div class="logo">
+        <!-- Your logo or branding -->
+    </div>
+    <h1 class="title">Cafes & WiFi</h1>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('add') }}">Add New Cafe</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="cafes_list">
+    <div class="container">
+        {% for cafe in cafes %}
+        <div class="cafe_card">
+            <h3 class="name">{{ cafe.name }}</h3>
+            <img class="cafe_img" src="{{ cafe.img_url }}" alt="{{ cafe.name }}">
+            <p>Location: <a href="{{ cafe.map_url }}" target="_blank">{{ cafe.location }}</a></p>
+            {% if cafe.seats %}
+                <p>Number of seats: {{ cafe.seats }}</p>
+            {% endif %}
+            <div class="true_false">
+                <p>Toilet: {{ 'Yes' if cafe.has_toilet else 'No' }}</p>
+                <p>WiFi: {{ 'Yes' if cafe.has_wifi else 'No' }}</p>
+                <p>Sockets: {{ 'Yes' if cafe.has_sockets else 'No' }}</p>
+                <p>Calls: {{ 'Yes' if cafe.can_take_calls else 'No' }}</p>
+            </div>
+            <p>Average coffee price: {{ cafe.coffee_price }}</p>
+            <div class="btn">
+                <a href="{{ url_for('add', cafe_id=cafe.id) }}" class="btn btn-primary">Edit</a>
+                <a href="{{ url_for('delete_cafe', cafe_id=cafe.id) }}" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>

@@ -1,0 +1,56 @@
+{% include "header.html" %}
+
+<section class="cafes_list">
+    <div class="container">
+        {% for cafe in cafes %}
+        <div class="cafe_card">
+            <h3 class="name">{{ cafe.name }}</h3>
+            <img class="cafe_img" src="{{ cafe.img_url }}" alt="{{ cafe.name }}" />
+
+            <p><strong>Location:</strong> <a href="{{ cafe.map_url }}">{{ cafe.location }}</a></p>
+            <p><strong>Number of seats:</strong> {{ cafe.seats }}</p>
+
+            <p><strong>Toilet:</strong>
+                {% if cafe.has_toilet %}
+                    Yes
+                {% else %}
+                    No
+                {% endif %}
+            </p>
+
+            <p><strong>WiFi:</strong>
+                {% if cafe.has_wifi %}
+                    Available
+                {% else %}
+                    Not available
+                {% endif %}
+            </p>
+
+            <p><strong>Sockets:</strong>
+                {% if cafe.has_sockets %}
+                    Yes
+                {% else %}
+                    No
+                {% endif %}
+            </p>
+
+            <p><strong>Calls Allowed:</strong>
+                {% if cafe.can_take_calls %}
+                    Yes
+                {% else %}
+                    No
+                {% endif %}
+            </p>
+
+            <p><strong>Average Coffee Price:</strong> {{ cafe.coffee_price }}</p>
+
+            <div class="btn">
+                <a href="{{ url_for('delete_cafe', cafe_id=cafe.id) }}" class="del_btn">Delete</a>
+                <a href="{{ url_for('add', cafe_id=cafe.id) }}" class="btn btn-primary">Edit</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% include "footer.html" %}

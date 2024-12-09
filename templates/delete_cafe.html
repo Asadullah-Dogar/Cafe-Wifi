@@ -1,0 +1,5 @@
+<h1>Are you sure you want to delete {{ cafe.name }}?</h1>
+<form method="POST">
+    <button type="submit">Yes, Delete</button>
+    <a href="{{ url_for('home') }}">Cancel</a>
+</form>
